@@ -1,17 +1,23 @@
-#!/usr/bin/env python
-import urllib2, sys, mechanize, pymysql.cursors
+# first, run installs on the following software:
+# $ pip install beautifulsoup4
+
+
+import urllib.request
+import sys, mechanize
+import pymysql.cursors
 from bs4 import BeautifulSoup
 
-proxy_setting = urllib2.ProxyHandler({'http': sys.argv[1] + ':' + sys.argv[2]})
-website = sys.argv[3]
-depth = sys.argv[4]
+website = sys.argv[1]
+depth = sys.argv[2]
 
-opener = urllib2.build_opener(proxy_setting)
-urllib2.instal_opener(opener)
-html_doc = urllib2.urlopen(website)
-soup = BeautifulSoup(html_doc, 'html.parser')
+request = urllib.request.urlopen(website)
+my_HTML = request.read().decode("utf8")
+print(my_HTML)
 
-forms = soup.findAll("div")
+soup = BeautifulSoup(request, 'html.parser')
+
+forms = soup.find_all("div")
+
 if depth == 0 :
     mydb = mysql.connector.connect(
         host="localhost",

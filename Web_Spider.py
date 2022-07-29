@@ -3,7 +3,7 @@
 
 
 import urllib.request
-import sys, mechanize
+import re, sys, mechanize
 import pymysql.cursors
 from bs4 import BeautifulSoup
 
